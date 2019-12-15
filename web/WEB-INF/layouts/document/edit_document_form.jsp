@@ -3,7 +3,7 @@
     Created on : Oct 2, 2019, 3:33:52 PM
     Author     : dzmitry
 --%>
-<%@page import="study.web.document.entity.Document"%>
+<%@page import="study.ejb.document.entity.Document"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% Document document = (Document) request.getAttribute("document"); %>
 <form action="${pageContext.request.contextPath}/Document?action=update&id=<% out.print(document.getId()); %>" method="post">
