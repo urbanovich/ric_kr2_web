@@ -3,25 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package study.web.document;
+package study.web.document.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import study.ejb.document.DocumentRemote;
+import study.web.document.helpers.Reader;
 
 /**
  *
  * @author dzmitry
  */
-public class Document extends HttpServlet {
-    @EJB
-    private DocumentRemote document;
+public class List extends HttpServlet {
 
+    protected static Reader reader;
+    
+    public List() {
+        super();
+        
+        this.reader = new Reader();
+        this.reader.read();
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,10 +45,10 @@ public class Document extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Document</title>");            
+            out.println("<title>Servlet List</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Document at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet List at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +66,9 @@ public class Document extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        request.setAttribute("list", this.reader.getList());
+        request.getRequestDispatcher("/WEB-INF/layouts/document/index.jsp").forward(request, response);
     }
 
     /**
