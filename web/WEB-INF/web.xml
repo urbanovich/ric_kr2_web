@@ -8,6 +8,18 @@
         <servlet-name>Document</servlet-name>
         <servlet-class>study.web.document.controllers.Document</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DefaultServlet</servlet-name>
+        <servlet-class>sorg.apache.catalina.servlets.DefaultServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DefaultServlet</servlet-name>
+        <url-pattern>/pub/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DefaultServlet</servlet-name>
+        <url-pattern>/ric_kr2_web/pub/*</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>List</servlet-name>
         <url-pattern>/</url-pattern>

@@ -6,7 +6,6 @@
 package study.web.document.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,6 +35,7 @@ public class Document extends HttpServlet {
             throws ServletException, IOException {
         
         String action = request.getParameter("action");
+        String id;
 
         switch (action == null ? "default" : action) {
             case "new":
@@ -43,9 +43,24 @@ public class Document extends HttpServlet {
                 break;
             case "edit":
                 
-                String id = request.getParameter("id");
+                id = request.getParameter("id");
                 request.setAttribute("document", this.document.search(id));
                 request.getRequestDispatcher("/WEB-INF/layouts/document/edit_document.jsp").forward(request, response);
+                break;
+            case "delete":
+                id = request.getParameter("id");
+                
+                study.ejb.document.entity.Document document = this.document.search(id);
+                        
+                if (document != null) {
+                    this.document.delete(id);
+                    this.document.save();
+                    request.setAttribute("addSuccess", "Документ удален");
+                } else {
+                    request.setAttribute("addError", "Документ не найден");
+                }
+                
+                response.sendRedirect(request.getContextPath() + "/List");
                 break;
             case "default":
             default:

@@ -21,4 +21,5 @@
     </div>
     
     <button type="submit" class="btn btn-default">Отправить</button>
+    <a href="${pageContext.request.contextPath}/Document?action=delete&id=<% out.print(document.getId()); %>">Удалить</a>
 </form>
